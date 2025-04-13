@@ -66,6 +66,8 @@ CHudAmmo::CHudAmmo( const char *pElementName ) : BaseClass(NULL, "HudAmmo"), CHu
 	hudlcd->SetGlobalStat( "(ammo_secondary)", "0" );
 	hudlcd->SetGlobalStat( "(weapon_print_name)", "" );
 	hudlcd->SetGlobalStat( "(weapon_name)", "" );
+
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------
@@ -364,6 +366,7 @@ public:
 		m_iAmmo = -1;
 
 		SetHiddenBits( HIDEHUD_HEALTH | HIDEHUD_WEAPONSELECTION | HIDEHUD_PLAYERDEAD | HIDEHUD_NEEDSUIT );
+		RegisterForRenderGroup("HL2");
 	}
 
 	void Init( void )

@@ -161,6 +161,15 @@ public:
 
 	void						SetScreenShotTime( float flTime ){ m_flScreenShotTime = flTime; }
 
+	enum HudStyle_e
+	{
+		HUD_HL2 = 0,
+		HUD_HL1,
+		MAX_HUD_STYLES
+	};
+
+	void						StyleSwitch(HudStyle_e type);
+
 public:
 
 	int							m_iKeyBits;

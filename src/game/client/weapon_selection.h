@@ -38,6 +38,8 @@ public:
 	virtual void Reset(void);
 	virtual void OnThink(void);
 
+	virtual void StyleSwitch(CHud::HudStyle_e style) OVERRIDE;
+
 	virtual void OpenSelection( void );
 	virtual void HideSelection( void );
 

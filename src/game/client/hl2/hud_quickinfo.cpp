@@ -98,6 +98,7 @@ CHUDQuickInfo::CHUDQuickInfo( const char *pElementName ) :
 	SetParent( pParent );
 
 	SetHiddenBits( HIDEHUD_CROSSHAIR );
+	RegisterForRenderGroup("HL2");
 }
 
 void CHUDQuickInfo::ApplySchemeSettings( IScheme *scheme )

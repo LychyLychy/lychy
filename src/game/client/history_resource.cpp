@@ -12,6 +12,7 @@
 #include <vgui/ISurface.h>
 #include "iclientmode.h"
 #include "vgui_controls/AnimationController.h"
+//#include "hl1/hl1_hud_history_resource.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -19,6 +20,7 @@
 using namespace vgui;
 
 extern ConVar hud_drawhistory_time;
+extern ConVar hud_style;
 
 DECLARE_HUDELEMENT( CHudHistoryResource );
 DECLARE_HUD_MESSAGE( CHudHistoryResource, ItemPickup );
@@ -63,6 +65,7 @@ void CHudHistoryResource::Init( void )
 	HOOK_HUD_MESSAGE( CHudHistoryResource, AmmoDenied );
 
 	Reset();
+	//RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------
@@ -463,3 +466,14 @@ void CHudHistoryResource::Paint( void )
 }
 
 
+CHudHistoryResource* CHudHistoryResource::GetCurrentHistoryResource(void)
+{
+	//switch (hud_style.GetInt())
+	//{
+	// LYCHYFIXME: HL1 History resource is painted but it doesn't show up!
+	//case CHud::HUD_HL1:
+	//	return GET_HUDELEMENT(CHL1HudHistoryResource);
+	//default:
+		return GET_HUDELEMENT(CHudHistoryResource);
+	//}
+}

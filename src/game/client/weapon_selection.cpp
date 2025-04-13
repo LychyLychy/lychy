@@ -22,24 +22,26 @@
 ConVar hud_drawhistory_time( "hud_drawhistory_time", HISTORY_DRAW_TIME, 0 );
 ConVar hud_fastswitch( "hud_fastswitch", "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX );
 
+static const char* s_szWeaponSelectionClass = "CHudWeaponSelection";
+
 //-----------------------------------------------------------------------------
 // Purpose: Weapon Selection commands
 //-----------------------------------------------------------------------------
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot1, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot2, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot3, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot4, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot5, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot6, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot7, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot8, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot9, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot0, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot10, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Close, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, NextWeapon, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, PrevWeapon, "CHudWeaponSelection");
-DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, LastWeapon, "CHudWeaponSelection");
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot1, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot2, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot3, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot4, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot5, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot6, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot7, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot8, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot9, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot0, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Slot10, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, Close, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, NextWeapon, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, PrevWeapon, s_szWeaponSelectionClass);
+DECLARE_HUD_COMMAND_NAME(CBaseHudWeaponSelection, LastWeapon, s_szWeaponSelectionClass);
 
 HOOK_COMMAND( slot1, Slot1 );
 HOOK_COMMAND( slot2, Slot2 );
@@ -120,7 +122,7 @@ void CBaseHudWeaponSelection::VidInit(void)
 	gWR.LoadAllWeaponSprites();
 
 	// set spacing of pickup history
-	CHudHistoryResource *pHudHR = GET_HUDELEMENT( CHudHistoryResource );
+	CHudHistoryResource *pHudHR = CHudHistoryResource::GetCurrentHistoryResource();
 	if( pHudHR )
 	{
 		pHudHR->SetHistoryGap( 21 );
@@ -266,7 +268,7 @@ int	CBaseHudWeaponSelection::KeyInput( int down, ButtonCode_t keynum, const char
 void CBaseHudWeaponSelection::OnWeaponPickup( C_BaseCombatWeapon *pWeapon )
 {
 	// add to pickup history
-	CHudHistoryResource *pHudHR = GET_HUDELEMENT( CHudHistoryResource );
+	CHudHistoryResource *pHudHR = CHudHistoryResource::GetCurrentHistoryResource();
 	
 	if ( pHudHR )
 	{
@@ -629,4 +631,17 @@ C_BaseCombatWeapon *CBaseHudWeaponSelection::GetNextActivePos( int iSlot, int iS
 	}
 
 	return pNextWeapon;
+}
+
+void CBaseHudWeaponSelection::StyleSwitch(CHud::HudStyle_e style)
+{
+	switch (style)
+	{
+	case CHud::HUD_HL2:
+		s_szWeaponSelectionClass = "CHudWeaponSelection";
+		break;
+	case CHud::HUD_HL1:
+		s_szWeaponSelectionClass = "CHL1HudWeaponSelection";
+		break;
+	}
 }

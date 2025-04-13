@@ -113,5 +113,22 @@ $Project "Client (HL2)"
 			$File	"hl2\vgui_rootpanel_hl2.cpp"
 			$File 	"episodic\c_vort_charge_token.cpp"
 		}
+		
+		$Folder "HL1 DLL"
+		{
+			$File	"hl1\hl1_hud_ammo.cpp"
+			$File	"hl1\hl1_hud_battery.cpp"
+			$File	"hl1\hl1_hud_damageindicator.cpp"
+			$File	"hl1\hl1_hud_damagetiles.cpp"
+			$File	"hl1\hl1_hud_flashlight.cpp"
+			$File	"hl1\hl1_hud_geiger.cpp"
+			$File	"hl1\hl1_hud_health.cpp"
+//			$File	"hl1\hl1_hud_history_resource.cpp"
+//			$File	"hl1\hl1_hud_history_resource.h"
+			$File	"hl1\hl1_hud_numbers.cpp"
+			$File	"hl1\hl1_hud_numbers.h"
+			$File	"hl1\hl1_hud_train.cpp"
+			$File	"hl1\hl1_hud_weaponselection.cpp"
+		}
 	}
 }

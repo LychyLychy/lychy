@@ -33,6 +33,7 @@ CHudSuitPower::CHudSuitPower( const char *pElementName ) : CHudElement( pElement
 	SetParent( pParent );
 
 	SetHiddenBits( HIDEHUD_HEALTH | HIDEHUD_PLAYERDEAD | HIDEHUD_NEEDSUIT );
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------

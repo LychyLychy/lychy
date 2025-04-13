@@ -31,6 +31,21 @@
 #include "tier0/memdbgon.h"
 
 static 	CClassMemoryPool< CHudTexture >	 g_HudTextureMemoryPool( 128 );
+void HudStyleCallback(IConVar* var, const char* pOldValue, float flOldValue);
+
+ConVar hud_style("hud_style", "0", 0, "HUD style:\n 0 - Half-Life 2\n 1 - Half-Life 1", HudStyleCallback);
+
+void HudStyleCallback(IConVar* var, const char* pOldValue, float flOldValue)
+{
+	CHud::HudStyle_e style = static_cast<CHud::HudStyle_e>(hud_style.GetInt());
+	if (style < CHud::HUD_HL2 || style >= CHud::MAX_HUD_STYLES)
+	{
+		Warning("Invalid HUD style %i, reverting\n", style);
+		hud_style.SetValue(int(flOldValue));
+		return;
+	}
+	gHUD.StyleSwitch(style);
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Parses the weapon txt files to get the sprites needed.
@@ -374,6 +389,11 @@ int	CHudElement::GetRenderGroupPriority( void )
 	return 0;
 }
 
+void CHudElement::StyleSwitch(CHud::HudStyle_e style)
+{
+	// Override this if needed
+}
+
 CHud gHUD;  // global HUD object
 
 DECLARE_MESSAGE(gHUD, ResetHUD);
@@ -530,6 +550,8 @@ void CHud::LevelInit( void )
 		group->bHidden = false;
 		group->m_pLockingElements.Purge();
 	}
+
+	StyleSwitch(static_cast<HudStyle_e>(hud_style.GetInt()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1181,6 +1203,26 @@ void CHud::UpdateHud( bool bActive )
 	g_pClientMode->Update();
 
 	gLCD.Update();
+}
+
+void CHud::StyleSwitch(HudStyle_e style)
+{
+	switch (style)
+	{
+	case HUD_HL2:
+		LockRenderGroup(LookupRenderGroupIndexByName("HL1"));
+		UnlockRenderGroup(LookupRenderGroupIndexByName("HL2"));
+		break;
+	case HUD_HL1:
+		UnlockRenderGroup(LookupRenderGroupIndexByName("HL1"));
+		LockRenderGroup(LookupRenderGroupIndexByName("HL2"));
+		break;
+	}
+
+	for (int i = 0; i < m_HudList.Size(); i++)
+	{
+		m_HudList[i]->StyleSwitch(style);
+	}
 }
 
 //-----------------------------------------------------------------------------

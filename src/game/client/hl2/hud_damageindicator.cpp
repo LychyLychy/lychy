@@ -128,6 +128,7 @@ CHudDamageIndicator::CHudDamageIndicator( const char *pElementName ) : CHudEleme
 	m_WhiteAdditiveMaterial.Init( "vgui/white_additive", TEXTURE_GROUP_VGUI ); 
 	
 	SetHiddenBits( HIDEHUD_HEALTH );
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------

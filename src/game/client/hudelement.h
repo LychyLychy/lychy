@@ -104,6 +104,9 @@ public:
 	// by panels with a lower priority and will only lock out panels with a lower priority
 	virtual int	GetRenderGroupPriority();
 
+	// Fired whenever hud_style is changed
+	virtual void StyleSwitch(CHud::HudStyle_e style);
+
 public: // IGameEventListener Interface
 	
 	virtual void FireGameEvent( IGameEvent * event ) {}
@@ -117,6 +120,8 @@ protected:
 	int							m_iHiddenBits;
 
 private:
+
+
 	const char					*m_pElementName;
 	bool						m_bNeedsRemove;
 	bool						m_bIsParentedToClientDLLRootPanel;

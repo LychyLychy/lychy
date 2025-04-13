@@ -696,4 +696,108 @@
 		"bgcolor_override"	"0 0 0 0"
 		"PaintBackgroundType"	"0" // rounded corners
 	}	
+    
+    HL1HudHealth
+	{
+		"fieldName"		"HL1HudHealth"
+		"xpos"	"0"
+		"ypos"	"430"
+		"wide"	"150"
+		"tall"  "50"
+		"visible" "1"
+		"enabled" "1"
+	}
+	
+	HL1HudSuit
+	{
+		"fieldName"		"HL1HudSuit"
+		"xpos"	"0"
+		"ypos"	"430"
+		"wide"	"640"
+		"tall"  "50"
+		"visible" "1"
+		"enabled" "1"
+	}
+
+	HL1HudAmmo
+	{
+		"fieldName" "HL1HudAmmo"
+		"visible" "1"
+		"enabled" "1"
+		"xpos"	"r640"
+		"tall"	 "480"
+		"wide"	"640"
+	}
+
+	HL1HudAmmoSecondary
+	{
+		"fieldName" "HL1HudAmmoSecondary"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+	
+	HL1HudFlashlight
+	{
+		"fieldName" "HL1HudFlashlight"
+		"visible" "1"
+		"xpos"	"r640"
+		"tall"  "480"
+		"wide"	"640"
+	}
+	
+	HL1HudDamageIndicator
+	{
+		"fieldName" "HL1HudDamageIndicator"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+
+	HL1HudDamageTiles
+	{
+		"fieldName" "HL1HudDamageIndicator"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+
+	HL1HudWeaponSelection
+	{
+		"fieldName" "HL1HudWeaponSelection"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+
+	HL1HudCrosshair
+	{
+		"fieldName" "HL1HudCrosshair"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+
+	HL1HudDeathNotice
+	{
+		"fieldName" "HL1HudDeathNotice"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
+
+	HL1HudVehicle
+	{
+		"fieldName" "HL1HudVehicle"
+		"visible" "1"
+		"enabled" "1"
+		"wide"	 "640"
+		"tall"	 "480"
+	}
 }

@@ -193,6 +193,7 @@ CHudWeaponSelection::CHudWeaponSelection( const char *pElementName ) : CBaseHudW
 	vgui::Panel *pParent = g_pClientMode->GetViewport();
 	SetParent( pParent );
 	m_bFadingOut = false;
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------
@@ -201,7 +202,7 @@ CHudWeaponSelection::CHudWeaponSelection( const char *pElementName ) : CBaseHudW
 void CHudWeaponSelection::OnWeaponPickup( C_BaseCombatWeapon *pWeapon )
 {
 	// add to pickup history
-	CHudHistoryResource *pHudHR = GET_HUDELEMENT( CHudHistoryResource );
+	CHudHistoryResource *pHudHR = CHudHistoryResource::GetCurrentHistoryResource();
 	if ( pHudHR )
 	{
 		pHudHR->AddToHistory( pWeapon );

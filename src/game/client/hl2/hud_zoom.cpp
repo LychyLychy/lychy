@@ -69,6 +69,7 @@ CHudZoom::CHudZoom( const char *pElementName ) : CHudElement(pElementName), Base
 	SetParent( pParent );
 	
 	SetHiddenBits( HIDEHUD_HEALTH | HIDEHUD_PLAYERDEAD | HIDEHUD_NEEDSUIT );
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------

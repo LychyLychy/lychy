@@ -985,7 +985,7 @@ void C_BasePlayer::OnDataChanged( DataUpdateType_t updateType )
 				if ( !pWeaponData || !( pWeaponData->iFlags & ITEM_FLAG_NOAMMOPICKUPS ) )
 				{
 					// We got more ammo for this ammo index. Add it to the ammo history
-					CHudHistoryResource *pHudHR = GET_HUDELEMENT( CHudHistoryResource );
+					CHudHistoryResource* pHudHR = CHudHistoryResource::GetCurrentHistoryResource();
 					if( pHudHR )
 					{
 						pHudHR->AddToHistory( HISTSLOT_AMMO, i, abs(GetAmmoCount(i) - m_iOldAmmo[i]) );

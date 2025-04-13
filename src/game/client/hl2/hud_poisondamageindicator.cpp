@@ -64,6 +64,7 @@ CHudPoisonDamageIndicator::CHudPoisonDamageIndicator( const char *pElementName )
 	SetParent( pParent );
 	
 	SetHiddenBits( HIDEHUD_HEALTH | HIDEHUD_PLAYERDEAD | HIDEHUD_NEEDSUIT );
+	RegisterForRenderGroup("HL2");
 }
 
 //-----------------------------------------------------------------------------

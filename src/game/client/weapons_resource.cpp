@@ -152,7 +152,7 @@ void WeaponsResource::LoadWeaponSprites( WEAPON_FILE_INFO_HANDLE hWeaponFileInfo
 		pWeaponInfo->iconZoomedAutoaim = pWeaponInfo->iconZoomedCrosshair;  //default to zoomed crosshair
 	}
 
-	CHudHistoryResource *pHudHR = GET_HUDELEMENT( CHudHistoryResource );	
+	CHudHistoryResource *pHudHR = CHudHistoryResource::GetCurrentHistoryResource();
 	if( pHudHR )
 	{
 		p = FindHudTextureInDict( tempList, "weapon" );

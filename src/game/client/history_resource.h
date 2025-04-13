@@ -36,7 +36,7 @@ class C_BaseCombatWeapon;
 class CHudHistoryResource : public CHudElement, public vgui::Panel
 {
 	DECLARE_CLASS_SIMPLE( CHudHistoryResource, vgui::Panel );
-private:
+protected:
 	struct HIST_ITEM 
 	{
 		HIST_ITEM() 
@@ -68,17 +68,19 @@ public:
 
 	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
 
-	void	AddToHistory( int iType, int iId, int iCount = 0 );
-	void	AddToHistory( int iType, const char *szName, int iCount = 0 );
-	void	AddToHistory( C_BaseCombatWeapon *weapon );
-	void	MsgFunc_ItemPickup( bf_read &msg );
-	void	MsgFunc_AmmoDenied( bf_read &msg );
+	virtual void	AddToHistory( int iType, int iId, int iCount = 0 );
+	virtual void	AddToHistory( int iType, const char *szName, int iCount = 0 );
+	virtual void	AddToHistory( C_BaseCombatWeapon *weapon );
+	virtual void	MsgFunc_ItemPickup( bf_read &msg );
+	virtual void	MsgFunc_AmmoDenied( bf_read &msg );
 	
-	void	CheckClearHistory( void );
-	void	SetHistoryGap( int iNewHistoryGap );
-	void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon );
+	virtual void	CheckClearHistory( void );
+	virtual void	SetHistoryGap( int iNewHistoryGap );
+	virtual void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon );
 
-private:
+	static CHudHistoryResource* GetCurrentHistoryResource(void);
+
+protected:
 	// these vars are for hl1-port compatibility
 	int		m_iHistoryGap;
 	int		m_iCurrentHistorySlot;
