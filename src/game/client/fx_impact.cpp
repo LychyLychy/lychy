@@ -16,6 +16,7 @@
 #include "engine/IStaticPropMgr.h"
 #include "c_impact_effects.h"
 #include "tier0/vprof.h"
+#include "c_splash.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -300,6 +301,77 @@ static void PerformNewCustomEffects( const Vector &vecOrigin, trace_t &tr, const
 	}
 }
 
+//------------------------------------------------------------------------------
+// Purpose : Create leak effect if material requests it
+// Input   :
+// Output  :
+//------------------------------------------------------------------------------
+void LeakEffect(trace_t& tr)
+{
+	Vector			vTraceDir = (tr.endpos - tr.startpos);
+	VectorNormalize(vTraceDir);
+	Vector			vTraceStart = tr.endpos - 0.1 * vTraceDir;
+	Vector			vTraceEnd = tr.endpos + 0.1 * vTraceDir;
+
+	IMaterial* pTraceMaterial = materials->FindMaterial(tr.surface.name, NULL);
+
+	if (!pTraceMaterial)
+		return;
+
+	bool			found;
+	IMaterialVar* pLeakVar = pTraceMaterial->FindVar("$leakamount", &found, false);
+	if (!found)
+		return;
+
+	C_Splash* pLeak = new C_Splash();
+	if (!pLeak)
+		return;
+
+
+	// VXP: Fix for crash when player shoots at leakable texture
+//	ClientEntityList().AddNonNetworkableEntity( pLeak->GetIClientUnknown() ); // VXP: Commented because causes crash at game shutdown
+	// VXP: Taken from c_fire_smoke.cpp
+/*	m_Partition = partition->CreateHandle( pLeak->GetIClientUnknown() );
+	view->AddVisibleEntity( pLeak );*/
+
+	IMaterialVar* pLeakColorVar = pTraceMaterial->FindVar("$leakcolor", &found);
+	if (found)
+	{
+		Vector color;
+		pLeakColorVar->GetVecValue(color.Base(), 3);
+		pLeak->m_vStartColor = pLeak->m_vEndColor = color;
+	}
+
+	IMaterialVar* pLeakNoiseVar = pTraceMaterial->FindVar("$leaknoise", &found);
+	if (found)
+	{
+		pLeak->m_flNoise = pLeakNoiseVar->GetFloatValue();
+	}
+
+	IMaterialVar* pLeakForceVar = pTraceMaterial->FindVar("$leakforce", &found);
+	if (found)
+	{
+		float flForce = pLeakForceVar->GetFloatValue();
+		pLeak->m_flSpeed = flForce;
+		pLeak->m_flSpeedRange = pLeak->m_flNoise * flForce;
+	}
+
+	pLeak->m_flSpawnRate = pLeakVar->GetFloatValue();;
+	pLeak->m_flParticleLifetime = 10;
+	pLeak->m_flWidthMin = 1;
+	pLeak->m_flWidthMax = 5;
+	pLeak->SetLocalOrigin(tr.endpos);
+
+	QAngle angles;
+	VectorAngles(tr.plane.normal, angles);
+	pLeak->SetLocalAngles(angles);
+
+	pLeak->Start(ParticleMgr(), NULL);
+	pLeak->m_flStopEmitTime = gpGlobals->curtime + 5.0;
+	pLeak->SetParent(tr.m_pEnt);
+	pLeak->SetNextClientThink(gpGlobals->curtime + 20.0);
+}
+
 void PerformCustomEffects( const Vector &vecOrigin, trace_t &tr, const Vector &shotDir, int iMaterial, int iScale, int nFlags )
 {
 	// Throw out the effect if any of these are true
@@ -359,6 +431,8 @@ void PerformCustomEffects( const Vector &vecOrigin, trace_t &tr, const Vector &s
 		VectorAngles( -shotDir, vecAngles );
 		DispatchParticleEffect( "warp_shield_impact", vecOrigin, vecAngles );
 	}
+
+	LeakEffect(tr);
 }
 
 //-----------------------------------------------------------------------------

@@ -271,6 +271,8 @@ $Project
 		$File	"c_slideshow_display.cpp"
 		$File	"c_slideshow_display.h"
 		$File	"c_soundscape.cpp"
+		$File	"c_splash.cpp"
+		$File	"c_splash.h"
 		$File	"c_spotlight_end.cpp"
 		$File	"c_sprite.cpp"
 		$File	"c_sprite_perfmonitor.cpp"
