@@ -220,6 +220,8 @@ public:
 	// Allocation, deletion
 	void  FreeNode( I i );
 
+	bool HasElement(T const& search) const { return Find(search) != InvalidIndex(); }
+
 	// Iteration
 	I  FirstInorder() const;
 	I  NextInorder( I i ) const;

@@ -176,6 +176,8 @@ public:
 	// Strips the trailing slash
 	void		StripTrailingSlash();
 
+	void		FixSlashes(char cSeparator = CORRECT_PATH_SEPARATOR);
+
 	CUtlString &operator=( const CUtlString &src );
 	CUtlString &operator=( const char *src );
 

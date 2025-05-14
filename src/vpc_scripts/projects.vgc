@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //	PROJECTS.VGC
 //
 //	Project Configurations for all Source(TM) Projects
@@ -17,6 +17,16 @@ $Project "client"
 {
 	"game\client\client_hl2.vpc"		[($WIN32||$X360||$POSIX) && $HL2]
 	"game\client\client_episodic.vpc"	[($WIN32||$X360||$POSIX) && $EPISODIC]
+}
+
+$Project "datamodel"
+{
+	"datamodel\datamodel.vpc" [$WIN32]
+}
+
+$Project "dmserializers"
+{
+	"dmserializers\dmserializers.vpc" [$WIN32]
 }
 
 $Project "fgdlib"
@@ -51,9 +61,19 @@ $Project "mathlib"
 	"mathlib\mathlib.vpc" [$WINDOWS||$X360||$POSIX]
 }
 
+$Project "mdlobjects"
+{
+	"mdlobjects\mdlobjects.vpc" [$WIN32]
+}
+
 $Project "motionmapper"
 {
 	"utils\motionmapper\motionmapper.vpc" [$WIN32]
+}
+
+$Project "movieobjects"
+{
+	"movieobjects\movieobjects.vpc" [$WIN32]
 }
 
 $Project "phonemeextractor"
@@ -74,6 +94,11 @@ $Project "qc_eyes"
 $Project "serverplugin_empty"
 {
 	"utils\serverplugin_sample\serverplugin_empty.vpc" [$WIN32||$POSIX]
+}
+
+$Project "studiomdl"
+{
+	"utils\studiomdl\studiomdl.vpc" [$WIN32]
 }
 
 $Project "tgadiff"

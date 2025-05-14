@@ -54,3 +54,10 @@ config.cfg
 # shader files
 *.tmp
 
+# more stuff
+
+vc120.pdb
+*.filters
+*.vpc_crc
+*.sentinel
+
