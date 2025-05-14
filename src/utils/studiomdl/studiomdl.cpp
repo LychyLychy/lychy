@@ -2297,10 +2297,8 @@ int Option_Activity( s_sequence_t *psequence )
 
 int Option_ActivityModifier( s_sequence_t *psequence )
 {
-	GetToken(false);
-	V_strcpy_safe( psequence->activitymodifier[ psequence->numactivitymodifiers++ ].name, token );
-
-	return 0;
+	Warning("activitymodifier not implemented\n");
+	return 1;
 }
 
 
@@ -2529,6 +2527,18 @@ void Cmd_Origin (void)
 	{
 		GetToken (false);
 		g_defaultrotation.z = DEG2RAD( verify_atof( token ) + 90);
+	}
+
+	if (TokenAvailable())
+	{
+		GetToken(false);
+		g_defaultrotation.y = DEG2RAD(verify_atof(token));
+	}
+
+	if (TokenAvailable())
+	{
+		GetToken(false);
+		g_defaultrotation.x = DEG2RAD(verify_atof(token));
 	}
 }
 
