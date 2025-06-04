@@ -15,12 +15,12 @@ class CWeaponWrench : public CBaseHLBludgeonWeapon
 	DECLARE_ACTTABLE();
 	DECLARE_DATADESC();
 
-	float		GetRange(void) { return	WRENCH_RANGE; }
-	float		GetFireRate(void) { return	WRENCH_REFIRE; }
+	float		GetRange(void) OVERRIDE { return	WRENCH_RANGE; }
+	float		GetFireRate(void) OVERRIDE { return	WRENCH_REFIRE; }
 
 	void		Spawn(void) OVERRIDE;
 	void		AddViewKick(void);
-	float		GetDamageForActivity(Activity hitActivity);
+	float		GetDamageForActivity(Activity hitActivity) OVERRIDE;
 
 	virtual int WeaponMeleeAttack1Condition(float flDot, float flDist);
 
@@ -31,8 +31,9 @@ private:
 	// Animation event handlers
 	void HandleAnimEventMeleeHit(animevent_t* pEvent, CBaseCombatCharacter* pOperator);
 
-	void SecondaryAttack(void);
-	void ItemPostFrame(void);
+	void PrimaryAttack(void) OVERRIDE;
+	void SecondaryAttack(void) OVERRIDE;
+	void ItemPostFrame(void) OVERRIDE;
 
 	float GetChargeTime(void) const;
 	void SetChargeTime(float chargeTime);
@@ -257,8 +258,7 @@ void CWeaponWrench::ItemPostFrame(void)
 		pPlayer->m_nButtons |= IN_ATTACK2;
 		pPlayer->m_afButtonReleased &= ~IN_ATTACK2;
 	}
-
-	if (pPlayer && pPlayer->m_afButtonReleased & IN_ATTACK2)
+	else if (IsCharged() && pPlayer && pPlayer->m_afButtonReleased & IN_ATTACK2)
 	{
 		BaseClass::SecondaryAttack();
 		ResetChargeTime();
@@ -290,4 +290,17 @@ bool CWeaponWrench::IsCharged(void) const
 float CWeaponWrench::GetChargeTimeSentinel(void) const
 {
 	return FLT_MAX;
+}
+
+//------------------------------------------------------------------------------
+// Purpose :
+// Input   :
+// Output  :
+//------------------------------------------------------------------------------
+void CWeaponWrench::PrimaryAttack()
+{
+	if (IsCharged())
+		return;
+
+	BaseClass::PrimaryAttack();
 }
